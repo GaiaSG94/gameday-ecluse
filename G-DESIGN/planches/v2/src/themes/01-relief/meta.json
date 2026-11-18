@@ -1,0 +1,13 @@
+{
+  "TITLE": "01 — Relief",
+  "SUB": "The lock as one soft white relief, lit from the left. Water is the only colour.",
+  "REFS": "Flow Computing, Igloo",
+  "BODY": "t-relief",
+  "RULE": "Hold the gate. <em>Let the ball fall.</em>",
+  "A_BALL": "",
+  "A_HELD": "Held · 0.54 s",
+  "S_READY": "White model at rest, ball above the water. Black pill: “Drop the ball”.",
+  "S_HELD": "The held plate turns water-blue; a pill counts down the 0.9 s.",
+  "S_JAM": "Ball rests on a plate in its shadow. Attempt +1, “Drop again”.",
+  "S_LOAD": "“Filling the canal…”: water rises inside the white relief."
+}

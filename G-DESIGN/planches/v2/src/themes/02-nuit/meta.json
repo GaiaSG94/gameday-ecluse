@@ -1,0 +1,13 @@
+{
+  "TITLE": "02 — Nuit d'écluse",
+  "SUB": "Wet concrete and steel under one sodium lamp. The held gate is the only warm thing in the frame.",
+  "REFS": "Igloo, Noon",
+  "BODY": "t-nuit",
+  "RULE": "Tap a gate to <em>hold it</em>. Reach the floor.",
+  "A_BALL": "Your ball",
+  "A_HELD": "",
+  "S_READY": "Lamp on, water still, ball waiting above the surface. “Drop the ball”.",
+  "S_HELD": "The tapped gate glows sodium; a ring drains over 0.9 s.",
+  "S_JAM": "Ball sits on a moving plate. Attempt +1, “Drop again”.",
+  "S_LOAD": "“Filling the canal…”: dark water climbs the walls."
+}

@@ -1,0 +1,21 @@
+/* ===== Page Séries & classement ===== */
+.p-series .pg-body{display:flex;flex-direction:column;gap:18px;flex:1}
+.p-series .pg-title{font-size:24px;max-width:11em}
+.p-series .cal{display:flex;flex-direction:column;gap:6px;margin-top:10px}
+.p-series .days{display:flex;gap:6px}
+.p-series .days i{width:14px;height:14px;border-radius:4px;background:#d0cfca}
+.p-series .days i.on{background:var(--ink)}
+.p-series .days i.today{box-shadow:0 0 0 2px var(--clay),0 0 0 3px var(--ink)}
+.p-series .board-today{display:flex;flex-direction:column;gap:8px}
+.p-series .board-today .pill{margin-top:6px}
+/* le module 3D : témoin dans la colonne gauche (desktop) */
+.p-series .m-embed .cv{display:none} /* mobile : la liste prime, le module disparaît */
+@container (min-width:600px){
+  .p-series .game .cv{left:0;width:36%;top:0;height:100%}
+  .p-series .pg-body{margin-left:38%;flex-direction:column;gap:20px;justify-content:center}
+  .p-series .pg-title{font-size:30px;max-width:none}
+  .p-series .board-today .pill{align-self:flex-start}
+  .p-series .pg-top{justify-content:flex-end;gap:16px}
+  .p-series .pg-top .mark{margin-right:auto}
+}
+@container (min-width:600px){.p-series .game{background:radial-gradient(ellipse 34% 56% at 18% 50%,#f7f6f3 0%,#e6e5e0 45%,#cdccc6 80%,#bfbeb8 100%)}}
