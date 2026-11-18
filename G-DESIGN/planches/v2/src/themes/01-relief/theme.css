@@ -1,0 +1,73 @@
+/* ============ 01 — RELIEF (Flow Computing + Igloo) ============ */
+:root{--clay:#e9e8e4;--ink:#111214;--grey:#6f6e69;--water:#2e7d8f;--accent-chip:#111214;
+  --sans:"Nimbus Sans","Helvetica Neue","Liberation Sans",Arial,sans-serif;--mono:"DejaVu Sans Mono",monospace}
+/* puits de lumière derrière le module, périphérie assombrie : le relief ressort au centre */
+.game{font-family:var(--sans);color:var(--ink);
+  background:radial-gradient(ellipse 38% 52% at 48% 46%,#f7f6f3 0%,#e6e5e0 45%,#cdccc6 78%,#bfbeb8 100%)}
+@container (max-width:599px){.game{background:radial-gradient(ellipse 70% 42% at 50% 50%,#f7f6f3 0%,#e6e5e0 50%,#cdccc6 85%,#c3c2bc 100%)}}
+.hud{padding:26px 28px 24px}
+.g-top .mark{font-size:13px;font-weight:600;letter-spacing:.02em}
+.g-top .date{font-size:13px;color:var(--grey)}
+/* le titre-règle : noir puis gris, très serré */
+.g-foot{display:block}
+.g-foot .rule{display:block;font-size:30px;line-height:1.02;font-weight:500;letter-spacing:-.045em;max-width:9.5em}
+.g-foot .rule em{font-style:normal;color:var(--grey)}
+.g-foot .hint{display:block;margin-top:10px;font-size:12px;color:var(--grey);letter-spacing:0}
+/* chiffres : une colonne discrète à gauche ; l'horloge = l'onglet noir vertical, seule masse sombre */
+.g-stats{position:absolute;left:28px;top:84px;flex-direction:column;gap:16px}
+.g-stats .lbl{font-size:11px;color:var(--grey);margin-bottom:3px}
+.g-stats b{font-size:22px;font-weight:500;letter-spacing:-.03em}
+.g-stats .clock{position:absolute;left:auto;top:0;display:none}
+.ticks{margin-top:6px}.ticks i{width:6px;height:6px;border-radius:50%;background:#d0cfca}.ticks i.on{background:var(--ink)}
+.p-jeu .game::after{content:"00:14.62";position:absolute;right:0;top:50%;transform:translateY(-50%);writing-mode:vertical-rl;
+  background:var(--ink);color:#fff;font:500 15px/1 var(--sans);letter-spacing:.02em;padding:16px 9px;border-radius:8px 0 0 8px;font-variant-numeric:tabular-nums}
+.ann .gl{font:500 11px/1 var(--sans);color:var(--grey);transform:translate(4px,-50%)}
+.ann .gl::before{content:"Gate ";}
+.ann .a-ball{display:none}
+.ann .a-held{transform:translate(-50%,-260%);background:var(--water);color:#fff;font:500 12px/1 var(--sans);padding:6px 9px;border-radius:999px}
+.scrib{display:none}
+/* mobile : titre en haut, chiffres en ligne */
+.g-foot .rule{font-size:24px}
+.g-stats{top:auto;bottom:22px;left:22px;right:56px;flex-direction:row;justify-content:space-between}
+.hud{padding:20px 22px 18px;justify-content:flex-start;gap:14px}
+.g-foot{order:2}
+.ann .gl{display:none}
+@container (min-width:600px){
+  .hud{padding:26px 28px 24px;justify-content:space-between}
+  .g-foot{order:0}
+  .g-foot .rule{font-size:40px}
+  .g-stats{top:96px;bottom:auto;left:28px;right:auto;flex-direction:column}
+  .ann .gl{display:block}
+}
+.sw .game::after{display:none}
+.sw .msg b{font-size:24px;font-weight:500;letter-spacing:-.04em;color:var(--ink)}
+.sw .msg span{font-size:12px;color:#fff;background:var(--ink);padding:5px 9px;border-radius:999px}
+
+/* ---- composants Relief partagés par les pages (STYLE.md §5) ---- */
+.pg{position:absolute;inset:0;pointer-events:none;padding:22px;display:flex;flex-direction:column;gap:14px;font-family:var(--sans);color:var(--ink)}
+.pg-top{display:flex;justify-content:space-between;align-items:baseline}
+.pg-top .mark{font-size:13px;font-weight:600;letter-spacing:.02em}
+.meta{font-size:12px;color:var(--grey)}
+.meta b{color:var(--ink);font-weight:500}
+.pg-title{font-size:26px;line-height:1.03;font-weight:500;letter-spacing:-.045em;margin:0}
+.pg-title em{font-style:normal;color:var(--grey)}
+.pill{display:inline-flex;align-items:center;height:40px;padding:0 20px;border-radius:999px;background:var(--ink);color:#fff;font-size:15px;font-weight:500;letter-spacing:-.01em;align-self:flex-start}
+.pill.water{background:var(--water)}
+.lnk{font-size:13px;color:var(--ink);text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
+.dots{display:inline-flex;gap:4px;vertical-align:middle}
+.dots i{width:6px;height:6px;border-radius:50%;background:#d0cfca}.dots i.on{background:var(--ink)}
+.num{font-size:22px;font-weight:500;letter-spacing:-.03em;font-variant-numeric:tabular-nums;display:block;margin-top:3px}
+.kv{display:flex;gap:22px}
+.kv .meta{display:block}
+.card{background:rgba(247,246,243,.82);border:1px solid #d0cfca;border-radius:12px;padding:12px 14px;font-size:13px;line-height:1.4}
+.list{list-style:none;margin:0;padding:0;border-top:1px solid #d0cfca}
+.list li{display:flex;align-items:center;gap:12px;height:40px;border-bottom:1px solid #d0cfca;font-size:14px}
+.list li .r{width:28px;color:var(--grey);font-size:12px;font-variant-numeric:tabular-nums}
+.list li .t{margin-left:auto;font-variant-numeric:tabular-nums;font-weight:500}
+.list li.me{color:var(--water)}.list li.me .r{color:var(--water)}
+.list li.gap{height:22px;justify-content:center;color:var(--grey);font-size:12px;border-bottom-style:dashed}
+.pastille{position:absolute;background:var(--water);color:#fff;font:500 12px/1 var(--sans);padding:6px 9px;border-radius:999px;white-space:nowrap;transform:translate(14px,-50%)}
+@container (min-width:600px){
+  .pg{padding:28px}
+  .pg-title{font-size:40px}
+}

@@ -1,0 +1,18 @@
+/* ===== Page Carte de fin : résultat, série, accroche commentaire ===== */
+.p-fin .ann .a-ball{display:block}
+.p-fin .pg-body{display:flex;flex-direction:column;gap:12px;flex:1}
+.p-fin .pg-title{font-size:24px;max-width:12em}
+.p-fin .pg-cta{display:flex;align-items:center;gap:14px;margin-top:auto}
+.p-fin .kv{justify-content:space-between}
+/* mobile : le module se range entre le titre et les chiffres */
+.p-fin .m-embed .cv{top:22%;height:34%}
+.p-fin .m-embed .kv{margin-top:auto}
+.p-fin .m-embed .pg-cta{margin-top:0}
+@container (max-width:599px){.p-fin .pg-body .kv{margin-top:190px}}
+@container (min-width:600px){
+  .p-fin .game .cv{left:42%;width:58%;top:0;height:100%}
+  .p-fin .pg-body{max-width:330px;justify-content:center;gap:22px}
+  .p-fin .pg-title{font-size:34px}
+  .p-fin .pg-cta{margin-top:4px}
+}
+@container (min-width:600px){.p-fin .game{background:radial-gradient(ellipse 34% 56% at 71% 50%,#f7f6f3 0%,#e6e5e0 45%,#cdccc6 80%,#bfbeb8 100%)}}

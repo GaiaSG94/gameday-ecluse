@@ -1,0 +1,13 @@
+{
+  "TITLE": "03 — Maquette annotée",
+  "SUB": "A scale model of the lock in a white room, red relief letters on the wall, the rule scribbled by hand on top.",
+  "REFS": "Gapsy, Dominic Burt, Flow Computing",
+  "BODY": "t-maquette",
+  "RULE": "Tap a gate to hold it. Reach the floor.",
+  "A_BALL": "your ball",
+  "A_HELD": "tap = hold it 0.9 s",
+  "S_READY": "Model on the floor, red letters on the wall. Scribble: “drop it!”.",
+  "S_HELD": "Held gate painted red, circled by hand.",
+  "S_JAM": "Ball stuck on a plate. Attempt +1, “Drop again”.",
+  "S_LOAD": "“Filling the canal…”: the model's lock fills up."
+}

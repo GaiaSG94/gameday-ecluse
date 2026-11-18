@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Écluse — V1 · 02 Relevé</title>
+<style>
+/* ============ BOARD (identique sur les 3 planches) ============ */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#d9dcdf}
+body{font-family:"Liberation Sans","Helvetica Neue",Arial,sans-serif;color:#1a1d21;overflow-x:hidden}
+.board{width:1990px;padding:40px 48px 48px;transform-origin:0 0}
+.board-head{display:flex;align-items:baseline;gap:24px;margin-bottom:24px}
+.board-head h1{font-size:22px;font-weight:600;letter-spacing:-.01em}
+.board-head p{font-size:14px;color:#5b6168}
+.board-head .tag{margin-left:auto;font:12px/1 "DejaVu Sans Mono",monospace;color:#5b6168;letter-spacing:.06em;text-transform:uppercase}
+.frames{display:flex;gap:64px;align-items:flex-start}
+.cap{font:12px/1 "DejaVu Sans Mono",monospace;color:#5b6168;letter-spacing:.06em;text-transform:uppercase;margin-top:12px}
+.frame{position:relative;overflow:hidden;background:#fff;box-shadow:0 1px 0 rgba(0,0,0,.06),0 20px 60px -20px rgba(20,30,40,.35)}
+.desk{width:1440px;height:900px;border-radius:10px}
+.mob{width:390px;height:844px;border-radius:44px;border:10px solid #111;box-shadow:0 20px 60px -20px rgba(20,30,40,.45)}
+
+/* ---- feed chrome, neutre, sans marque ---- */
+.d-top{height:56px;border-bottom:1px solid #e6e8eb;display:flex;align-items:center;padding:0 20px;gap:16px}
+.d-top .logo{width:32px;height:32px;border-radius:50%;background:#e6e8eb}
+.d-top .search{flex:0 0 560px;height:38px;border-radius:19px;background:#f1f3f5;margin:0 auto;display:flex;align-items:center;padding:0 16px;font-size:14px;color:#8a9097}
+.d-top .me{width:32px;height:32px;border-radius:50%;background:#cfd4d9}
+.d-body{display:flex;height:844px}
+.d-rail{width:260px;border-right:1px solid #e6e8eb;padding:20px 16px;display:flex;flex-direction:column;gap:10px}
+.d-rail i{display:block;height:12px;border-radius:6px;background:#eef0f2}
+.d-rail i:nth-child(3n){width:60%}.d-rail i:nth-child(3n+1){width:80%}
+.d-main{flex:1;display:flex;gap:24px;padding:20px 32px;justify-content:center}
+.post{width:760px}
+.p-head{display:flex;align-items:center;gap:8px;font-size:12px;color:#5b6168;margin-bottom:6px}
+.p-head .av{width:24px;height:24px;border-radius:50%;background:var(--accent-chip,#2e7d8f)}
+.p-head b{color:#1a1d21;font-weight:600}
+.p-title{font-size:20px;font-weight:600;letter-spacing:-.01em;margin-bottom:12px}
+.embed{width:760px;height:600px;border-radius:16px;overflow:hidden;container-type:size;position:relative}
+.p-act{display:flex;gap:10px;margin-top:12px}
+.p-act span{height:32px;padding:0 14px;border-radius:16px;background:#f1f3f5;font-size:12px;font-weight:600;color:#3d434a;display:flex;align-items:center}
+.d-side{width:316px;padding-top:28px}
+.side-card{border-radius:16px;background:#f6f7f8;padding:16px;font-size:12px;color:#5b6168;line-height:1.5}
+.side-card b{display:block;color:#1a1d21;font-size:14px;margin-bottom:6px}
+
+.m-status{height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 26px;font-size:14px;font-weight:600}
+.m-status i{display:inline-block;width:18px;height:10px;border-radius:2px;background:#1a1d21;margin-left:4px}
+.m-bar{height:48px;display:flex;align-items:center;gap:12px;padding:0 14px;border-bottom:1px solid #eef0f2;font-size:14px;font-weight:600}
+.m-bar .chev{width:10px;height:10px;border-left:2px solid #1a1d21;border-bottom:2px solid #1a1d21;transform:rotate(45deg);margin-left:6px}
+.m-post{padding:10px 14px 8px}
+.m-post .p-title{font-size:16px;margin:4px 0 0}
+.m-embed{width:370px;height:560px;margin:0 auto;border-radius:14px;overflow:hidden;container-type:size;position:relative}
+.m-act{display:flex;gap:8px;padding:10px 14px}
+.m-act span{height:30px;padding:0 12px;border-radius:15px;background:#f1f3f5;font-size:12px;font-weight:600;color:#3d434a;display:flex;align-items:center}
+.m-home{position:absolute;bottom:8px;left:50%;width:134px;height:5px;border-radius:3px;background:#111;transform:translateX(-50%)}
+
+.states{margin-top:36px;display:flex;gap:24px}
+.state{width:300px}
+.state .sw{height:120px;border-radius:12px;overflow:hidden;position:relative;container-type:size}
+.state p{font-size:13px;color:#3d434a;margin-top:8px;line-height:1.45}
+.state p b{display:block;font:12px/1.4 "DejaVu Sans Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:#1a1d21}
+
+/* ============ DIRECTION 02 — RELEVÉ ============ */
+:root{
+  --paper:#eceae3;
+  --paper-2:#e3e0d6;
+  --ink:#1d2b33;
+  --line:#8c9699;
+  --hatch:rgba(29,43,51,.16);
+  --signal:#e4572e;     /* seul accent */
+  --sans:"Nimbus Sans","Helvetica Neue","Liberation Sans",Arial,sans-serif;
+  --mono:"JetBrains Mono","IBM Plex Mono","DejaVu Sans Mono",monospace;
+  --accent-chip:#1d2b33;
+}
+.game{position:absolute;inset:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
+  display:grid;grid-template-columns:1fr;grid-template-rows:auto auto 1fr auto;gap:12px;padding:20px 20px 16px;
+  background-image:radial-gradient(rgba(29,43,51,.07) 1px,transparent 1px);background-size:16px 16px}
+.g-top{display:flex;align-items:baseline;justify-content:space-between;border-bottom:1.5px solid var(--ink);padding-bottom:8px}
+.mark{font-size:28px;font-weight:500;letter-spacing:-.03em}
+.date{font:500 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase}
+.date .long{color:var(--line)}
+.g-stats{display:grid;grid-template-columns:1.5fr 1fr 1fr;border:1.5px solid var(--ink)}
+.g-stats>div{padding:8px 10px;border-left:1px solid var(--ink)}
+.g-stats>div:first-child{border-left:0}
+.lbl{display:block;font:500 9px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--line);margin-bottom:6px}
+.g-stats b{font:500 20px/1 var(--mono);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.clock b{font-size:26px}
+.ticks{display:flex;gap:3px;margin-top:6px}
+.ticks i{width:7px;height:7px;border:1px solid var(--ink)}
+.ticks i.on{background:var(--ink)}
+
+/* --- coupe du puits --- */
+.shaft{position:relative;margin:4px 18px 0 48px;border-left:3px solid var(--ink);border-right:3px solid var(--ink);border-bottom:3px solid var(--ink);
+  background:repeating-linear-gradient(180deg,transparent 0 7px,var(--hatch) 7px 8px)}
+.shaft::before,.shaft::after{content:"";position:absolute;top:0;bottom:-3px;width:12px;
+  background:repeating-linear-gradient(45deg,var(--ink) 0 1px,transparent 1px 5px);opacity:.55}
+.shaft::before{left:-15px}.shaft::after{right:-15px}
+.shaft .air{position:absolute;left:0;right:0;top:0;height:6%;background:var(--paper)}
+.shaft .wl{position:absolute;left:0;right:0;top:6%;height:0;border-top:1.5px solid var(--ink)}
+.shaft .wl svg{display:none}
+.shaft .wl::before{content:"";position:absolute;right:16%;top:-11px;border:6px solid transparent;border-top:8px solid var(--ink);border-bottom:0}
+.shaft .wl::after{content:"WL ±0.00";position:absolute;right:calc(16% + 18px);top:-14px;font:500 9px/1 var(--mono);letter-spacing:.08em;background:var(--paper);padding:0 3px}
+.caust{display:none}
+.path{position:absolute;top:6%;bottom:0;left:50%;border-left:1px dashed var(--line)}
+.depth{position:absolute;left:-46px;top:50%;transform:translateY(-50%);font:500 10px/1 var(--mono);letter-spacing:.06em;color:var(--ink);width:24px;text-align:right}
+.depth::after{content:"";position:absolute;right:-8px;top:50%;width:5px;border-top:1px solid var(--ink)}
+.row{position:absolute;left:0;right:0;height:20px;transform:translateY(-50%)}
+.rail{position:absolute;left:0;right:0;top:50%;border-top:1px dashed var(--line)}
+.plate{position:absolute;top:0;bottom:0;width:40%;left:var(--x);background:var(--paper);border:1.5px solid var(--ink);
+  background-image:repeating-linear-gradient(45deg,var(--ink) 0 1px,transparent 1px 5px)}
+.row.sweep .plate{animation:sweep var(--t) ease-in-out infinite alternate}
+@keyframes sweep{from{left:0}to{left:60%}}
+.row.passed .plate{background-image:none;border-style:dashed;border-color:var(--line)}
+.row.passed .depth{color:var(--line)}
+.row.held .plate{animation:none;background:var(--signal);background-image:none;border-color:var(--ink)}
+.row.held .gauge{position:absolute;left:var(--x);width:40%;top:26px;height:0;border-top:1px solid var(--ink)}
+.row.held .gauge::before,.row.held .gauge::after{content:"";position:absolute;top:-4px;height:7px;border-left:1px solid var(--ink)}
+.row.held .gauge::before{left:0}.row.held .gauge::after{left:60%;border-color:var(--signal);border-left-width:2px}
+.row.held .tap{position:absolute;left:20%;top:50%;width:30px;height:30px;border:1.5px solid var(--signal);border-radius:50%;transform:translate(-50%,-50%)}
+.ball{position:absolute;left:50%;width:22px;height:22px;border-radius:50%;transform:translate(-50%,-50%);background:var(--ink);box-shadow:0 0 0 3px var(--paper)}
+.ball::after{content:"";position:absolute;left:5px;top:4px;width:5px;height:5px;border-radius:50%;background:var(--paper)}
+.bubbles i{position:absolute;width:5px;height:5px;border-radius:50%;border:1px solid var(--ink);background:var(--paper)}
+
+.g-gates{display:none}
+.g-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:15px;font-weight:500;letter-spacing:-.01em}
+.g-foot .rule em{font-style:normal;background:var(--signal);color:var(--paper);padding:0 4px}
+.g-foot .hint{font:500 10px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--line)}
+.date .long,.g-foot .hint{display:none}
+.g-gates li .no{display:none}
+
+@container (min-width:600px){
+  .game{grid-template-columns:1fr 250px;grid-template-rows:1fr auto;column-gap:28px;row-gap:14px;padding:26px 28px 22px}
+  .shaft{grid-column:1;grid-row:1/3;margin:0 18px 0 74px}
+  .g-top{grid-column:2;grid-row:1;flex-direction:column;align-items:flex-start;gap:8px;align-self:start}
+  .mark{font-size:40px}
+  .date .long,.g-foot .hint{display:inline}
+  .g-stats{grid-column:2;grid-row:1;align-self:end;grid-template-columns:1fr 1fr;margin-bottom:200px}
+  .g-stats>div:first-child{grid-column:1/-1;border-bottom:1px solid var(--ink)}
+  .g-stats>div:nth-child(2){border-left:0}
+  .clock b{font-size:40px}
+  .g-gates{display:block;grid-column:2;grid-row:1;align-self:end;border-top:1.5px solid var(--ink)}
+  .g-gates li{list-style:none;display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--ink);font:500 11px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase}
+  .g-gates li b{font-weight:500}
+  .g-gates li.held b{background:var(--signal);color:var(--paper);padding:2px 4px;margin:-2px 0}
+  .g-foot{grid-column:2;grid-row:2;flex-direction:column;align-items:flex-start;gap:8px}
+}
+.sw .game{padding:0;display:block}
+.sw .shaft{position:absolute;inset:8px 40px 0;margin:0}
+.sw .depth{display:none}
+.sw .msg{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;font-family:var(--sans);text-align:center}
+.sw .msg b{font-size:18px;font-weight:500;letter-spacing:-.01em;background:var(--paper);border:1.5px solid var(--ink);padding:4px 10px}
+.sw .msg span{font:500 10px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;background:var(--signal);color:var(--paper);padding:3px 6px}
+</style>
+</head>
+<body>
+<div class="board" id="board">
+  <div class="board-head">
+    <h1>02 — Relevé</h1>
+    <p>A lock drawn in section: paper, ink, hatching, one signal orange. Breaks from the dark starting point.</p>
+    <span class="tag">Écluse · V1 · page Jeu · 2026-11-18</span>
+  </div>
+
+  <div class="frames">
+    <div>
+      <div class="frame desk">
+        <div class="d-top"><span class="logo"></span><span class="search">Search</span><span class="me"></span></div>
+        <div class="d-body">
+          <div class="d-rail"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <div class="d-main">
+            <div class="post">
+              <div class="p-head"><span class="av"></span><b>r/EcluseDaily</b> · 3 h · u/ecluse-keeper</div>
+              <div class="p-title">Écluse · Wednesday, 18 November</div>
+              <div class="embed" data-game></div>
+              <div class="p-act"><span>412 comments</span><span>Share</span></div>
+            </div>
+            <div class="d-side"><div class="side-card"><b>r/EcluseDaily</b>One lock a day. Same canal for everyone.</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="cap">Desktop · 1440 × 900 · post agrandi dans le feed</div>
+    </div>
+
+    <div>
+      <div class="frame mob">
+        <div class="m-status"><span>9:41</span><span><i></i><i></i></span></div>
+        <div class="m-bar"><span class="chev"></span>r/EcluseDaily</div>
+        <div class="m-post">
+          <div class="p-head"><span class="av"></span><b>u/ecluse-keeper</b> · 3 h</div>
+          <div class="p-title">Écluse · Wednesday, 18 November</div>
+        </div>
+        <div class="m-embed" data-game></div>
+        <div class="m-act"><span>412 comments</span><span>Share</span></div>
+        <span class="m-home"></span>
+      </div>
+      <div class="cap">Mobile · 390 × 844 · contexte réel du post</div>
+    </div>
+  </div>
+
+  <div class="states">
+    <div class="state"><div class="sw" data-state="ready"></div><p><b>Ready</b>Water level marked, gates sweeping. One button: “Drop the ball”.</p></div>
+    <div class="state"><div class="sw" data-state="held"></div><p><b>Hold</b>Tapped gate fills signal orange for 0.9 s; dimension bar shows time left.</p></div>
+    <div class="state"><div class="sw" data-state="jam"></div><p><b>Gate jammed</b>Ball meets a hatched plate. Attempt +1, “Drop again”.</p></div>
+    <div class="state"><div class="sw" data-state="load"></div><p><b>Loading</b>“Filling the canal…”: the WL mark climbs to ±0.00.</p></div>
+  </div>
+</div>
+
+<!-- composant de jeu, cloné dans les deux cadres -->
+<template id="tpl">
+  <div class="game">
+    <header class="g-top"><div class="mark">Écluse</div><div class="date">Wed · 18 Nov<span class="long"> · Lock of the day</span></div></header>
+    <section class="g-stats">
+      <div class="clock"><span class="lbl">Time</span><b>00:14.62</b></div>
+      <div><span class="lbl">Attempt</span><b>2</b></div>
+      <div><span class="lbl">Streak</span><b>6</b><span class="ticks"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></div>
+    </section>
+    <section class="shaft">
+      <div class="air"></div>
+      <div class="caust"><svg preserveAspectRatio="none" viewBox="0 0 300 600"><defs><filter id="cf" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency="0.018 0.03" numOctaves="2" seed="7"><animate attributeName="baseFrequency" dur="14s" values="0.018 0.03;0.02 0.034;0.018 0.03" repeatCount="indefinite"/></feTurbulence><feColorMatrix type="matrix" values="0 0 0 0 0.75  0 0 0 0 0.91  0 0 0 0 0.94  1 0 0 0 0"/><feComponentTransfer><feFuncA type="table" tableValues="0 0 0 0 .15 1 .15 0 0 0 0"/></feComponentTransfer></filter><linearGradient id="cfade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff"/><stop offset=".7" stop-color="#fff" stop-opacity=".25"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient><mask id="cm"><rect width="300" height="600" fill="url(#cfade)"/></mask></defs><rect width="300" height="600" filter="url(#cf)" mask="url(#cm)"/></svg></div>
+      <div class="wl"><svg viewBox="0 0 300 10" preserveAspectRatio="none"><path d="M0 5 Q 12 2 25 5 T 50 5 T 75 5 T 100 5 T 125 5 T 150 5 T 175 5 T 200 5 T 225 5 T 250 5 T 275 5 T 300 5" fill="none" stroke="#bfe9f0" stroke-width="1.5"/></svg></div>
+      <div class="path"></div>
+      <div class="row passed sweep" style="top:20.8%;--x:8%;--t:5.4s"><span class="depth">G1</span><div class="rail"></div><div class="plate"></div></div>
+      <div class="row passed sweep" style="top:36.7%;--x:44%;--t:6.8s;animation-delay:-2s"><span class="depth">G2</span><div class="rail"></div><div class="plate" style="animation-delay:-3s"></div></div>
+      <div class="row held" style="top:52.5%;--x:2%"><span class="depth">G3</span><div class="rail"></div><div class="plate"></div><div class="gauge"></div><span class="tap"></span></div>
+      <div class="row sweep" style="top:68.3%;--x:30%;--t:4.6s"><span class="depth">G4</span><div class="rail"></div><div class="plate" style="animation-delay:-1.2s"></div></div>
+      <div class="row sweep" style="top:84.2%;--x:55%;--t:3.9s"><span class="depth">G5</span><div class="rail"></div><div class="plate" style="animation-delay:-2.6s"></div></div>
+      <div class="ball" style="top:46%"></div>
+      <div class="bubbles"><i style="left:48%;top:41%"></i><i style="left:51.5%;top:38%;width:3px;height:3px"></i><i style="left:49%;top:34%;width:2px;height:2px"></i></div>
+    </section>
+    <ul class="g-gates">
+      <li><span>Gate 1</span><b>Passed</b></li>
+      <li><span>Gate 2</span><b>Passed</b></li>
+      <li class="held"><span>Gate 3</span><b>Held 0.54 s</b></li>
+      <li><span>Gate 4</span><b>—</b></li>
+      <li><span>Gate 5</span><b>—</b></li>
+    </ul>
+    <footer class="g-foot"><span class="rule">Tap a gate to <em>hold it</em>. Reach the floor.</span><span class="hint">Same canal for everyone</span></footer>
+  </div>
+</template>
+
+<script>
+(function(){
+  var tpl=document.getElementById('tpl');
+  document.querySelectorAll('[data-game]').forEach(function(el){el.appendChild(tpl.content.cloneNode(true));});
+  // vignettes d'états
+  document.querySelectorAll('[data-state]').forEach(function(el){
+    var g=tpl.content.cloneNode(true).querySelector('.game');
+    var shaft=g.querySelector('.shaft');
+    var wrap=document.createElement('div');wrap.className='game';wrap.appendChild(shaft);
+    var s=el.getAttribute('data-state');
+    var ball=shaft.querySelector('.ball'), held=shaft.querySelector('.row.held');
+    shaft.querySelectorAll('.depth,.bubbles').forEach(function(n){n.remove();});
+    if(s!=='held'){held.classList.remove('held');held.classList.add('sweep');held.querySelector('.gauge').remove();held.querySelector('.tap').remove();}
+    shaft.querySelectorAll('.row').forEach(function(r){r.classList.remove('passed');});
+    var msg=document.createElement('div');msg.className='msg';
+    if(s==='ready'){ball.style.top='3%';msg.innerHTML='<b>Drop the ball</b><span>Lock of the day</span>';}
+    if(s==='held'){msg.remove();}
+    if(s==='jam'){ball.style.top='64%';msg.innerHTML='<b>Gate jammed</b><span>Drop again · attempt 3</span>';}
+    if(s==='load'){ball.remove();shaft.querySelectorAll('.row').forEach(function(r){r.style.opacity=.25});shaft.querySelector('.air').style.height='62%';shaft.querySelector('.wl').style.top='62%';msg.innerHTML='<b>Filling the canal</b><span>One moment</span>';msg.style.background='transparent';}
+    if(s!=='held') shaft.appendChild(msg);
+    el.appendChild(wrap);
+  });
+  // ajuste la planche à la fenêtre
+  var b=document.getElementById('board');
+  function fit(){var k=location.hash==='#full'?1:Math.min(1,window.innerWidth/1990);b.style.transform='scale('+k+')';document.body.style.height=(b.offsetHeight*k)+'px';}
+  window.addEventListener('resize',fit);fit();
+})();
+</script>
+</body>
+</html>

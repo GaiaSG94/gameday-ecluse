@@ -1,0 +1,22 @@
+/* ============ JEU — structure commune (les thèmes ne règlent que le style) ============ */
+.game{position:absolute;inset:0;overflow:hidden}
+.game .cv{position:absolute;inset:0;width:100%;height:100%;display:block}
+.hud{position:absolute;inset:0;pointer-events:none;display:flex;flex-direction:column;justify-content:space-between}
+.g-top{display:flex;justify-content:space-between;align-items:baseline}
+.g-stats{display:flex}
+.g-stats b{font-variant-numeric:tabular-nums}
+.ticks{display:flex;gap:3px}
+.lbl{display:block}
+.date .long,.g-foot .hint{display:none}
+.ann{position:absolute;inset:0;pointer-events:none}
+.ann>span{position:absolute;white-space:nowrap}
+.scrib{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.msg{display:none}
+.sw .hud,.sw .ann>span,.sw .scrib{display:none}
+.sw .msg:not(:empty){display:flex;position:absolute;inset:0;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center}
+.sw .is-held .ann .a-held{display:block}
+@container (min-width:600px){
+  .date .long,.g-foot .hint{display:inline}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.msg{z-index:5}

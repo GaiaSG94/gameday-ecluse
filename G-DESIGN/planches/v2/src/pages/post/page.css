@@ -1,0 +1,17 @@
+/* ===== Page Post : aperçu inline dans le feed (splash) ===== */
+.p-post .embed{height:512px}
+/* mobile : titre en haut, module au centre, action en bas */
+.p-post .pg-body{display:flex;flex-direction:column;justify-content:space-between;flex:1}
+.p-post .pg-title{max-width:11em}
+.p-post .pg-cta{display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+.p-post .pg-cta .pill{order:-1}
+.p-post .m-embed .cv{top:22%;height:56%}
+@container (min-width:600px){
+  /* desktop : texte à gauche, module dans les deux tiers droits */
+  .p-post .game .cv{left:36%;width:64%;top:0;height:100%}
+  .p-post .pg-body{max-width:300px;justify-content:center;gap:28px}
+  .p-post .pg-title{font-size:38px}
+}
+.p-post .sw .pg{display:none}
+.p-post .sw .cv{left:0;width:100%;top:0;height:100%}
+@container (min-width:600px){.p-post .game{background:radial-gradient(ellipse 34% 56% at 68% 50%,#f7f6f3 0%,#e6e5e0 45%,#cdccc6 80%,#bfbeb8 100%)}}

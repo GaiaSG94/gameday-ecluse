@@ -1,0 +1,43 @@
+/* ============ 03 — MAQUETTE ANNOTÉE (Gapsy + Dominic Burt) ============ */
+:root{--wall:#efede8;--ink:#141414;--red:#d7362b;--mute:#8a867e;--accent-chip:#d7362b;
+  --sans:"Nimbus Sans Narrow","Nimbus Sans","Liberation Sans Narrow","Arial Narrow",sans-serif;--mono:"DejaVu Sans Mono",monospace;
+  --hand:"Nimbus Sans","Liberation Sans",Arial,sans-serif}
+/* salle blanche : mur éclairé d'en haut, sol bois en bas */
+.game{font-family:var(--sans);color:var(--ink);
+  background:linear-gradient(180deg,#e2dfd8 0%,#f4f2ee 30%,#efede8 66%,#d2b48b 66.2%,#c09a6c 100%)}
+.game::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.35;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 .35 0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E")}
+/* le nom en lettres rouges en relief, fixées au mur, derrière la maquette */
+.game .cv{z-index:1}
+.hud{z-index:2}
+.ann{z-index:3}
+.g-top{position:absolute;left:0;right:0;top:0;padding:18px 18px 0;z-index:0}
+.mark{position:absolute;left:0;right:0;top:26px;text-align:center;font-size:84px;line-height:.85;font-weight:700;letter-spacing:-.05em;text-transform:uppercase;color:var(--red);
+  text-shadow:1px 1px 0 #b82a21,2px 2px 0 #a8261e,3px 3px 0 #98221b,4px 4px 0 #8a1f18,8px 14px 18px rgba(80,20,10,.25)}
+.mark::after{content:"\2014";margin-left:.05em}
+.date{position:absolute;right:18px;top:118px;font:500 10px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink)}
+.date .long{color:var(--mute)}
+.g-stats{position:absolute;left:18px;right:18px;bottom:16px;gap:0;background:var(--ink);color:#fff;border-radius:12px;padding:10px 14px;justify-content:space-between}
+.lbl{font:500 9px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:#a8a49c;margin-bottom:5px}
+.g-stats b{font:600 20px/1 var(--sans);letter-spacing:-.01em}
+.clock b{font-size:24px}
+.ticks{margin-top:5px}.ticks i{width:6px;height:2px;background:#4a4844}.ticks i.on{background:#fff}
+.g-foot{display:none}
+/* notes griffonnées (narration de la règle) */
+.ann .a-ball,.ann .a-held{font:italic 700 14px/1.05 var(--hand);color:var(--red);letter-spacing:-.01em}
+.ann .a-ball{transform:translate(70px,-62px)}
+.ann .a-held{transform:translate(-50%,24px);white-space:normal;width:150px;text-align:center}
+.ann .gl{display:none}
+@container (min-width:600px){
+  .mark{font-size:150px;top:22px}
+  .date{top:178px;right:28px}
+  .g-stats{left:auto;right:24px;bottom:auto;top:50%;transform:translateY(-50%);flex-direction:column;gap:14px;width:150px;padding:16px}
+  .clock b{font-size:30px}
+  .ann .a-ball{transform:translate(100px,-78px);font-size:17px}
+  .ann .a-held{font-size:17px;width:190px;transform:translate(-50%,30px)}
+}
+.sw .mark{display:none}
+.sw .msg b{font-size:30px;font-weight:700;letter-spacing:-.04em;text-transform:uppercase;color:var(--red);text-shadow:1px 1px 0 #a8261e,2px 2px 0 #8a1f18}
+.sw .msg span{font:italic 700 13px/1 var(--hand);color:var(--ink)}
+.sw .hud{display:block}.sw .hud>*:not(.g-top){display:none}.sw .g-top .date{display:none}
+.sw .msg{z-index:4}

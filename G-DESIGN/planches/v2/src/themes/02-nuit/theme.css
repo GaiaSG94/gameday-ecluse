@@ -1,0 +1,37 @@
+/* ============ 02 — NUIT D'ÉCLUSE (Igloo + Noon) ============ */
+:root{--night:#06080a;--ink:#e4e6e5;--mute:#7a8386;--sodium:#f2a541;--accent-chip:#1c2125;
+  --sans:"Nimbus Sans","Helvetica Neue","Liberation Sans",Arial,sans-serif;--mono:"DejaVu Sans Mono",monospace}
+.game{background:var(--night);font-family:var(--sans);color:var(--ink)}
+/* lampe hors champ : halo en haut */
+.game::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 45% 30% at 52% 0%,rgba(242,165,65,.18),transparent 70%)}
+.hud{padding:22px 22px 20px}
+.mark{font-size:11px;font-weight:600;letter-spacing:.42em;text-transform:uppercase}
+.date{font:500 10px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+.g-stats{position:absolute;left:22px;top:52px;align-items:flex-end;gap:18px;right:22px}
+.g-stats .clock{margin-right:auto}
+.lbl{font:500 9px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--mute);margin-bottom:6px}
+.g-stats b{font-size:20px;font-weight:300}
+.clock b{font-size:46px;font-weight:300;letter-spacing:-.04em;text-shadow:0 0 28px rgba(242,165,65,.28)}
+.ticks{margin-top:6px}.ticks i{width:4px;height:4px;border-radius:50%;background:#2a3237}.ticks i.on{background:var(--sodium)}
+.g-foot{display:flex;justify-content:space-between;align-items:center;font-size:14px}
+.g-foot .rule em{font-style:normal;color:var(--sodium)}
+.g-foot .hint{font:500 9px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--mute)}
+.ann .gl{font:500 9px/1 var(--mono);letter-spacing:.14em;color:var(--mute);transform:translate(6px,-50%)}
+.ann .gl::before{content:"G"}
+.ann .gl:nth-of-type(5){color:var(--sodium)}
+.ann .gl:nth-of-type(5)::after{content:""}
+@container (min-width:600px){.ann .gl:nth-of-type(5)::after{content:" · held 0.54 s"}}
+.ann .a-ball{font:500 9px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--ink);transform:translate(18px,-50%)}
+.ann .a-ball::before{content:"";display:inline-block;width:14px;height:1px;background:var(--ink);vertical-align:middle;margin-right:6px}
+.ann .a-held{display:none}
+.scrib{display:none}
+@container (min-width:600px){
+  .hud{padding:26px 28px 24px}
+  .g-stats{top:auto;bottom:70px;left:28px;right:auto;flex-direction:column;align-items:flex-start;gap:20px}
+  .clock b{font-size:60px}
+}
+.sw .game::before{display:none}
+.sw .msg{background:rgba(6,8,10,.45)}
+.sw .msg b{font-size:13px;font-weight:600;letter-spacing:.38em;text-transform:uppercase;color:var(--ink)}
+.sw .msg span{font:500 9px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--sodium)}
